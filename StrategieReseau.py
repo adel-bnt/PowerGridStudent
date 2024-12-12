@@ -10,15 +10,14 @@ class StrategieReseauManuelle(StrategieReseau):
         noeuds = {}
         arcs = []
         
-        # Obtenir l'entrée électrique
         entree_coords = t.get_entree()
-        print(f"Entrée électrique trouvée en {entree_coords}")
+        print(f"Entrée électrique  en {entree_coords}")
         
-        # Ajouter l'entrée comme premier nœud
+    
         noeud_entree = 0
         noeuds[noeud_entree] = entree_coords
         
-        # Boucle interactive pour ajouter des nœuds et arcs manuellement
+        
         while True:
             print("\nTerrain actuel :")
             t.afficher()
@@ -28,7 +27,7 @@ class StrategieReseauManuelle(StrategieReseau):
             
             action = input("\nAction (noeud / arc / finir) : ").strip().lower()
             
-            if action == " noeud":
+            if action == "noeud":
                 try:
                     x, y = map(int, input("Coordonnées du nouveau nœud (x y) : ").split())
                     identifiant = len(noeuds)
@@ -37,7 +36,7 @@ class StrategieReseauManuelle(StrategieReseau):
                 except ValueError:
                     print("Entrée invalide. Essayez à nouveau.")
             
-            elif action == " arc":
+            elif action == "arc":
                 try:
                     n1, n2 = map(int, input("Identifiants des nœuds à connecter (n1 n2) : ").split())
                     if n1 in noeuds and n2 in noeuds:
@@ -60,20 +59,17 @@ class StrategieReseauAuto(StrategieReseau):
     def configurer(self, t: Terrain) -> tuple[int, dict[int, tuple[int, int]], list[int]]:
         noeuds = {}
         arcs = []
+
         
-        # Obtenir l'entrée électrique
         entree_coords = t.get_entree()
         noeud_entree = 0
         noeuds[noeud_entree] = entree_coords
-        
-        # Ajouter tous les clients comme nœuds
+
         clients = t.get_clients()
         for i, client in enumerate(clients, start=1):
             noeuds[i] = client
-            # Connecter chaque client à l'entrée avec un arc direct
-            arcs.append((noeud_entree, i))
-        
-        # Debug : Afficher les nœuds et arcs générés
+            arcs.append((noeud_entree, i))  
+
         print(f"[DEBUG] Nœuds générés : {noeuds}")
         print(f"[DEBUG] Arcs générés : {arcs}")
         return noeud_entree, noeuds, arcs
