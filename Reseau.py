@@ -1,4 +1,3 @@
-
 from Terrain import Terrain, Case
 from StrategieReseau import StrategieReseau, StrategieReseauAuto
 
@@ -42,12 +41,13 @@ class Reseau:
         visited = set()
         stack = [self.noeud_entree]
 
-            
+        # Parcours en profondeur pour vérifier la connectivité
         while stack:
             current = stack.pop()
             if current not in visited:
                 visited.add(current)
                 
+                # Ajouter les voisins connectés
                 for n1, n2 in self.arcs:
                     if n1 == current and n2 not in visited:
                         stack.append(n2)
@@ -66,7 +66,7 @@ class Reseau:
 
         clients = t.get_clients()
 
-           
+        # Vérifier que chaque client est couvert
         for client in clients:
             if client not in self.noeuds.values():
                 print(f"[DEBUG] Client non relié : {client}")
