@@ -1,4 +1,5 @@
 
+
 from enum import Enum
 
 class Case(Enum):
@@ -74,4 +75,3 @@ class Terrain:
                 else:
                     print(" ", end="")
             print()
-
